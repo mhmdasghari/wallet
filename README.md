@@ -1,1 +1,4 @@
-# wewallet
+# Wewallet
+
+## Database Design
+![](wewallet.png)
