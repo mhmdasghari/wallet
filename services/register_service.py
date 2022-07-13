@@ -14,13 +14,12 @@ class UserRegisterService(BaseService):
         super().__init__(request=request, contain_form=True)
 
     def validate(self):
-        pass
-    # if not self.username or not len(self.username) > 3:
-    #     self.errors.append("Username should be > 3 chars")
-    # if not self.email or not (self.email.__contains__("@")):
-    #     self.errors.append("Email is required")
-    # if not self.password or not len(self.password) >= 4:
-    #     self.errors.append("Password must be > 4 chars")
+        if not self.username or not len(self.username) > 3:
+            self.add_error("Username should be > 3 chars")
+        if not self.mobile or not (self.mobile.__len__() == 12):
+            self.add_error("Email is required")
+        if not self.password or not len(self.password) >= 4:
+            self.add_error("Password must be > 4 chars")
 
     def process(self):
         pass
