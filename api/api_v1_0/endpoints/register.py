@@ -1,10 +1,22 @@
-from fastapi import APIRouter, Request
-from fastapi.templating import Jinja2Templates
+from fastapi import APIRouter
+from fastapi.responses import HTMLResponse
+
+from api.schema.request.register import UserRegister
+from services.register_service import UserRegisterService
 
 router = APIRouter()
-templates = Jinja2Templates(directory="templates")
 
 
-@router.get("/register/")
-def register(request: Request):
-    return templates.TemplateResponse("/register.html", {"request": request})
+@router.post("/register/", response_class=HTMLResponse)
+def register(user_model: UserRegister):
+    user_data = UserRegisterService(user_model=user_model).process()
+    return f"""
+    <html>
+        <head>
+            <title>Register Data</title>
+        </head>
+        <body>
+            <h1>{user_data}</h1>
+        </body>
+    </html>
+    """
